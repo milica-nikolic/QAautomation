@@ -1,0 +1,27 @@
+# One of the workloads that I have found to cover the required functionalities in the task is CronJobs.
+
+# CronJobs manage Jobs on a scheduled basis, following the same model as a Linux crontab.
+
+# Using CronJobs, we can schedule a job to run once a day, a week, or a month.
+
+# An example of a cronJob would look like this. I filled it with information I knew at the time (schedule attribute for example).
+
+apiVersion: example
+kind: CronJob
+metadata:
+  name: executeScriptAndImage
+spec:
+  schedule: "0 0 2/24 ? * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: nameOfOurContainer
+            image: milica16/qaauto:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; echo Hello 
+          restartPolicy: OnFailure
